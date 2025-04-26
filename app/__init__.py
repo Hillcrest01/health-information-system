@@ -10,6 +10,8 @@ def create_app():
     db.init_app(app)
 
     from app.routes import main
+    from app.api import api
     app.register_blueprint(main)
+    app.register_blueprint(api , url_prefix = '/api/v1')
     
     return app
