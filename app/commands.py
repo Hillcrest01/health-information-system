@@ -1,6 +1,6 @@
 from datetime import datetime
 from app import db
-from app.models import HealthProgram, Client
+from app.models import HealthProgram, Client, Enrollment
 
 def init_db():
     """Initialize the database"""
@@ -38,9 +38,18 @@ def init_db():
         db.session.add_all(clients)
         
         # Enroll clients in programs
-        clients[0].programs.append(programs[0])  # John in TB
-        clients[0].programs.append(programs[2])  # John in HIV
-        clients[1].programs.append(programs[1])  # Jane in Malaria
         
-        db.session.commit()
-        print("Initialized database with default programs and clients")
+        # Enroll clients in programs
+    tb = HealthProgram.query.filter_by(name='TB').first()
+    malaria = HealthProgram.query.filter_by(name='Malaria').first()
+    hiv = HealthProgram.query.filter_by(name='HIV').first()
+
+    john = Client.query.filter_by(email='john.doe@example.com').first()
+    jane = Client.query.filter_by(email='jane.smith@example.com').first()
+
+    db.session.add(Enrollment(client_id=john.id, program_id=tb.id))
+    db.session.add(Enrollment(client_id=john.id, program_id=hiv.id))
+    db.session.add(Enrollment(client_id=jane.id, program_id=malaria.id))
+        
+    db.session.commit()
+    print("Initialized database with default programs and clients")

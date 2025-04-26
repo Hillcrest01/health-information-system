@@ -2,11 +2,14 @@ from datetime import datetime
 from app import db
 
 # Enrollment association table (many-to-many relationship)
-enrollments = db.Table('enrollments',
-    db.Column('client_id', db.Integer, db.ForeignKey('client.id'), primary_key=True),
-    db.Column('program_id', db.Integer, db.ForeignKey('health_program.id'), primary_key=True),
-    db.Column('enrollment_date', db.DateTime, default=datetime.utcnow)
-)
+class Enrollment(db.Model):
+    __tablename__ = 'enrollments'
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), primary_key=True)
+    program_id = db.Column(db.Integer, db.ForeignKey('health_program.id'), primary_key=True)
+    enrollment_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    program = db.relationship('HealthProgram', backref='enrollments')
+    client = db.relationship('Client', backref='enrollments')
 
 class HealthProgram(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -30,9 +33,9 @@ class Client(db.Model):
     # Relationship to programs
     programs = db.relationship(
         'HealthProgram', 
-        secondary=enrollments,
+        secondary='enrollments',
         lazy='subquery',
-        backref=db.backref('clients', lazy=True)
+        backref=db.backref('enrolled_clients', lazy=True)
     )
     
     def __repr__(self):

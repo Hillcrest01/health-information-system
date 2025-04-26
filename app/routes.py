@@ -70,3 +70,16 @@ def unenroll_client(client_id, program_id):
         db.session.commit()
     
     return redirect(url_for('main.client_profile', client_id=client.id))
+
+@main.route('/clients/search')
+def search_clients():
+    query = request.args.get('q', '')
+    if query:
+        clients = Client.query.filter(
+            (Client.first_name.ilike(f'%{query}%')) |
+            (Client.last_name.ilike(f'%{query}%')) |
+            (Client.email.ilike(f'%{query}%'))
+        ).all()
+    else:
+        clients = []
+    return render_template('clients/search.html', clients=clients, query=query)

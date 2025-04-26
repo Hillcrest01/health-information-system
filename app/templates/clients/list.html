@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>Registered Clients</h1>
+    <a href="{{ url_for('main.search_clients') }}">Search Clients</a>
     <a href="{{ url_for('main.register_client') }}">Register New Client</a>
     <ul>
         {% for client in clients %}

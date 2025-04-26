@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Clients</title>
+</head>
+<body>
+    <h1>Search Clients</h1>
+    <form method="GET" action="{{ url_for('main.search_clients') }}">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search by name or email">
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if clients %}
+    <h2>Results</h2>
+    <ul>
+        {% for client in clients %}
+        <li>
+            {{ client.first_name }} {{ client.last_name }} 
+            - {{ client.email }}
+            <a href="{{ url_for('main.client_profile', client_id=client.id) }}">View Profile</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% elif query %}
+    <p>No clients found matching "{{ query }}"</p>
+    {% endif %}
+</body>
+</html>
