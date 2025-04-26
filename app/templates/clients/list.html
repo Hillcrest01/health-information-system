@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clients List</title>
+</head>
+<body>
+    <h1>Registered Clients</h1>
+    <a href="{{ url_for('main.register_client') }}">Register New Client</a>
+    <ul>
+        {% for client in clients %}
+        <li>
+            {{ client.first_name }} {{ client.last_name }} 
+            - {{ client.email }}
+            <a href="{{ url_for('main.client_profile', client_id=client.id) }}">View Profile</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

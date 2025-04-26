@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ client.first_name }} {{ client.last_name }} - Profile</title>
+    <style>
+        .enrolled { background-color: #e0ffe0; }
+        .not-enrolled { background-color: #ffe0e0; }
+    </style>
+</head>
+<body>
+    <h1>{{ client.first_name }} {{ client.last_name }}</h1>
+    <a href="{{ url_for('main.list_clients') }}">Back to Clients</a>
+    
+    <h2>Client Details</h2>
+    <p><strong>Date of Birth:</strong> {{ client.date_of_birth }}</p>
+    <p><strong>Gender:</strong> {{ client.gender }}</p>
+    <p><strong>Contact:</strong> {{ client.contact_number }}</p>
+    <p><strong>Email:</strong> {{ client.email }}</p>
+    <p><strong>Address:</strong> {{ client.address }}</p>
+    <p><strong>Registered:</strong> {{ client.registration_date }}</p>
+    
+    <h2>Program Enrollment</h2>
+    <form method="POST" action="{{ url_for('main.enroll_client', client_id=client.id) }}">
+        <select name="program_id">
+            <option value="">Select a program...</option>
+            {% for program in programs %}
+                <option value="{{ program.id }}">{{ program.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Enroll</button>
+    </form>
+    
+    <h3>Current Enrollments</h3>
+    <ul>
+        {% for program in client.programs %}
+        <li>
+            {{ program.name }} (since {{ client.enrollments|selectattr('program_id', 'equalto', program.id) }})
+            <a href="{{ url_for('main.unenroll_client', client_id=client.id, program_id=program.id) }}">Unenroll</a>
+        </li>
+        {% else %}
+        <li>Not enrolled in any programs</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
