@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, render_template, redirect, url_for, request, make_response
+from flask import Blueprint, jsonify, render_template, redirect, url_for, request, make_response, flash
 from flask_httpauth import HTTPBasicAuth
 from app.models import HealthProgram, Client
 from app.forms import ClientForm
@@ -11,10 +11,35 @@ auth = HTTPBasicAuth()
 def home():
     return render_template('clients/home.html')
 
-@main.route('/programs')
-def get_programs():
+@main.route('/programs', methods=['GET', 'POST'])
+def manage_programs():
+    # Handle program creation
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('description')
+        
+        if not name:
+            flash('Program name is required', 'danger')
+            return redirect(url_for('main.manage_programs'))
+            
+        program = HealthProgram(name=name, description=description)
+        db.session.add(program)
+        db.session.commit()
+        flash(f'Program "{name}" created successfully!', 'success')
+        return redirect(url_for('main.manage_programs'))
+    
+    # Handle GET request - show all programs
     programs = HealthProgram.query.all()
-    return jsonify([{'id': p.id, 'name': p.name, 'description': p.description} for p in programs])
+    return render_template('programs/manage.html', programs=programs)
+
+@main.route('/programs/<int:program_id>/delete', methods=['POST'])
+def delete_program(program_id):
+    program = HealthProgram.query.get_or_404(program_id)
+    program_name = program.name
+    db.session.delete(program)
+    db.session.commit()
+    flash(f'Program "{program_name}" deleted successfully', 'success')
+    return redirect(url_for('main.manage_programs'))
 
 @main.route('/clients', methods=['GET'])
 def list_clients():
@@ -24,6 +49,7 @@ def list_clients():
 @main.route('/clients/register', methods=['GET', 'POST'])
 def register_client():
     form = ClientForm()
+    form.programs.choices = [(p.id, p.name) for p in HealthProgram.query.all()]
     
     if form.validate_on_submit():
         client = Client(
@@ -35,8 +61,16 @@ def register_client():
             email=form.email.data,
             address=form.address.data
         )
+        
+        # Add selected programs
+        for program_id in form.programs.data:
+            program = HealthProgram.query.get(program_id)
+            if program:
+                client.programs.append(program)
+        
         db.session.add(client)
         db.session.commit()
+        flash(f'Client {client.first_name} {client.last_name} registered successfully!', 'success')
         return redirect(url_for('main.list_clients'))
     
     return render_template('clients/register.html', form=form)

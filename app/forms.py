@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateField, SelectField, TextAreaField, SubmitField
+from wtforms import StringField, DateField, SelectField, TextAreaField, SubmitField, SelectMultipleField
 from wtforms.validators import DataRequired, Email
 
 class ClientForm(FlaskForm):
@@ -10,4 +10,5 @@ class ClientForm(FlaskForm):
     contact_number = StringField('Contact Number')
     email = StringField('Email', validators=[Email()])
     address = TextAreaField('Address')
+    programs = SelectMultipleField('Enroll in Programs', coerce=int)
     submit = SubmitField('Register Client')

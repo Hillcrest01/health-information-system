@@ -1,3 +1,5 @@
+<!--this page gives the profile of the client which can be viewed by the doctor-->
+
 {% extends "base.html" %}
 
 {% block title %}{{ client.first_name }} {{ client.last_name }} - Profile{% endblock %}
@@ -59,7 +61,6 @@
                 <thead>
                     <tr>
                         <th>Program</th>
-                        <th>Enrollment Date</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -67,7 +68,6 @@
                     {% for program in client.programs %}
                     <tr>
                         <td>{{ program.name }}</td>
-                        <td>{{ client.enrollments|selectattr('program_id', 'equalto', program.id)|first.enrollment_date }}</td>
                         <td>
                             <a href="{{ url_for('main.unenroll_client', client_id=client.id, program_id=program.id) }}" 
                                class="btn btn-danger" 
