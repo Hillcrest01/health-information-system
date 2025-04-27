@@ -5,6 +5,8 @@ from app.models import Client
 
 api = Blueprint('api', __name__)
 
+
+#exposing the client profile here via api
 @api.route('/clients/<int:client_id>')
 def get_client(client_id):
     client = Client.query.get_or_404(client_id)
