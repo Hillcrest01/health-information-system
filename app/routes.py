@@ -9,7 +9,7 @@ auth = HTTPBasicAuth()
 
 @main.route('/')
 def home():
-    return jsonify({'message': 'Health Info System API'})
+    return render_template('clients/home.html')
 
 @main.route('/programs')
 def get_programs():

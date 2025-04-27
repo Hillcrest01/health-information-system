@@ -1,20 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Clients List</title>
-</head>
-<body>
-    <h1>Registered Clients</h1>
-    <a href="{{ url_for('main.search_clients') }}">Search Clients</a>
-    <a href="{{ url_for('main.register_client') }}">Register New Client</a>
-    <ul>
-        {% for client in clients %}
-        <li>
-            {{ client.first_name }} {{ client.last_name }} 
-            - {{ client.email }}
-            <a href="{{ url_for('main.client_profile', client_id=client.id) }}">View Profile</a>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Clients List{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>Registered Clients</h1>
+        <a href="{{ url_for('main.register_client') }}" class="btn">+ New Client</a>
+    </div>
+    
+    <div style="margin-bottom: 20px;">
+        <form method="GET" action="{{ url_for('main.search_clients') }}" style="display: flex;">
+            <input type="text" name="q" placeholder="Search clients..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px;">
+            <button type="submit" class="btn" style="border-radius: 0 4px 4px 0;">Search</button>
+        </form>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Programs</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.first_name }} {{ client.last_name }}</td>
+                <td>{{ client.email }}</td>
+                <td>
+                    {% for program in client.programs %}
+                        <span class="badge badge-success">{{ program.name }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('main.client_profile', client_id=client.id) }}" class="btn btn-secondary" style="padding: 5px 10px; font-size: 14px;">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

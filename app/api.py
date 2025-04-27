@@ -1,12 +1,11 @@
 from flask import Blueprint, jsonify
 from flask_httpauth import HTTPBasicAuth
 from app.models import Client
-from app import auth
+
 
 api = Blueprint('api', __name__)
 
 @api.route('/clients/<int:client_id>')
-@auth.login_required
 def get_client(client_id):
     client = Client.query.get_or_404(client_id)
     return jsonify({

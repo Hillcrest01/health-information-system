@@ -1,45 +1,89 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ client.first_name }} {{ client.last_name }} - Profile</title>
-    <style>
-        .enrolled { background-color: #e0ffe0; }
-        .not-enrolled { background-color: #ffe0e0; }
-    </style>
-</head>
-<body>
-    <h1>{{ client.first_name }} {{ client.last_name }}</h1>
-    <a href="{{ url_for('main.list_clients') }}">Back to Clients</a>
+{% extends "base.html" %}
+
+{% block title %}{{ client.first_name }} {{ client.last_name }} - Profile{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>{{ client.first_name }} {{ client.last_name }}</h1>
+        <a href="{{ url_for('main.list_clients') }}" class="btn btn-secondary">Back to Clients</a>
+    </div>
     
-    <h2>Client Details</h2>
-    <p><strong>Date of Birth:</strong> {{ client.date_of_birth }}</p>
-    <p><strong>Gender:</strong> {{ client.gender }}</p>
-    <p><strong>Contact:</strong> {{ client.contact_number }}</p>
-    <p><strong>Email:</strong> {{ client.email }}</p>
-    <p><strong>Address:</strong> {{ client.address }}</p>
-    <p><strong>Registered:</strong> {{ client.registration_date }}</p>
-    
-    <h2>Program Enrollment</h2>
-    <form method="POST" action="{{ url_for('main.enroll_client', client_id=client.id) }}">
-        <select name="program_id">
-            <option value="">Select a program...</option>
-            {% for program in programs %}
-                <option value="{{ program.id }}">{{ program.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Enroll</button>
-    </form>
-    
-    <h3>Current Enrollments</h3>
-    <ul>
-        {% for program in client.programs %}
-        <li>
-            {{ program.name }} (since {{ client.enrollments|selectattr('program_id', 'equalto', program.id) }})
-            <a href="{{ url_for('main.unenroll_client', client_id=client.id, program_id=program.id) }}">Unenroll</a>
-        </li>
-        {% else %}
-        <li>Not enrolled in any programs</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+        <div class="card">
+            <h2>Client Details</h2>
+            <div class="form-group">
+                <label>Date of Birth</label>
+                <p>{{ client.date_of_birth or 'Not specified' }}</p>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <p>{{ client.gender or 'Not specified' }}</p>
+            </div>
+            <div class="form-group">
+                <label>Contact Number</label>
+                <p>{{ client.contact_number or 'Not specified' }}</p>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <p>{{ client.email }}</p>
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <p>{{ client.address or 'Not specified' }}</p>
+            </div>
+            <div class="form-group">
+                <label>Registration Date</label>
+                <p>{{ client.registration_date }}</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>Program Enrollment</h2>
+            <form method="POST" action="{{ url_for('main.enroll_client', client_id=client.id) }}">
+                <div class="form-group">
+                    <label for="program_id">Enroll in Program</label>
+                    <select name="program_id" id="program_id" required>
+                        <option value="">Select a program...</option>
+                        {% for program in programs %}
+                            <option value="{{ program.id }}">{{ program.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn">Enroll</button>
+            </form>
+            
+            <h3 style="margin-top: 30px;">Current Enrollments</h3>
+            {% if client.programs %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Program</th>
+                        <th>Enrollment Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for program in client.programs %}
+                    <tr>
+                        <td>{{ program.name }}</td>
+                        <td>{{ client.enrollments|selectattr('program_id', 'equalto', program.id)|first.enrollment_date }}</td>
+                        <td>
+                            <a href="{{ url_for('main.unenroll_client', client_id=client.id, program_id=program.id) }}" 
+                               class="btn btn-danger" 
+                               style="padding: 5px 10px; font-size: 14px;"
+                               onclick="return confirm('Are you sure you want to unenroll this client from {{ program.name }}?')">
+                                Unenroll
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>This client is not enrolled in any programs yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

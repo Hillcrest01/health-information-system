@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h1>Welcome to HealthInfo System</h1>
+    <p>Manage your clients and health programs efficiently with our comprehensive health information system.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+        <div class="card">
+            <h3>Quick Actions</h3>
+            <a href="{{ url_for('main.register_client') }}" class="btn">Register New Client</a>
+            <a href="{{ url_for('main.list_clients') }}" class="btn btn-secondary" style="margin-top: 10px;">View All Clients</a>
+            <a href="{{ url_for('main.search_clients') }}" class="btn btn-secondary" style="margin-top: 10px;">Search Clients</a>
+        </div>
+        
+        <div class="card">
+            <h3>System Stats</h3>
+            <p><strong>{{ client_count }}</strong> Registered Clients</p>
+            <p><strong>{{ program_count }}</strong> Health Programs</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
