@@ -1,6 +1,8 @@
-# **Health Information System**  
-### *Advanced Health Information Management System*  
+# **Health Information System**    
 
+The system is live at: https://health-information-system-ziwb.onrender.com/ <br>
+Presentation slides: https://docs.google.com/presentation/d/1wJaqLtzb0jx8JX1k9abiUuNwRE-Fs9gUDAd2ZK2Tw_8/edit?usp=sharing <br>
+Prototype demonstration: https://drive.google.com/file/d/1xYDgfUecbteqUYFRyh6_8nyKpKJuL--Q/view?usp=sharing <br>
 ```diff
 + Modern Flask Web App | Doctor-Friendly Design
 ```
@@ -76,4 +78,4 @@ erDiagram
 
 The system is live at: https://health-information-system-ziwb.onrender.com/ <br>
 Presentation slides: https://docs.google.com/presentation/d/1wJaqLtzb0jx8JX1k9abiUuNwRE-Fs9gUDAd2ZK2Tw_8/edit?usp=sharing <br>
-Prototype demonstration: https://drive.google.com/file/d/1xYDgfUecbteqUYFRyh6_8nyKpKJuL--Q/view?usp=sharing
+Prototype demonstration: https://drive.google.com/file/d/1xYDgfUecbteqUYFRyh6_8nyKpKJuL--Q/view?usp=sharing <br>
