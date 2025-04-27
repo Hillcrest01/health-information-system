@@ -1,4 +1,4 @@
-# 🌟 **Health Information System**  
+# **Health Information System**  
 ### *Advanced Health Information Management System*  
 
 ```diff
@@ -7,18 +7,18 @@
 
 ---
 
-## 🏆 **Key Features**  
+## **Key Features**  
 
 | Feature | Description | Tech Used |  
 |---------|-------------|-----------|  
-| **👥 Client Management** | Register, search, and manage patient profiles | Flask-SQLAlchemy |  
-| **🏥 Program Management** | Create TB/Malaria/HIV programs with tracking | WTForms |  
-| **📊 Enrollment System** | Assign patients to multiple health programs | SQLite/PostgreSQL |    
-| **🎨 Modern UI** | Responsive dashboard with intuitive controls | CSS3, Jinja2 |  
+| **Client Management** | Register, search, and manage patient profiles | Flask-SQLAlchemy |  
+| **Program Management** | Create TB/Malaria/HIV programs with tracking | WTForms |  
+| **Enrollment System** | Assign patients to multiple health programs | SQLite/PostgreSQL |    
+| **Modern UI** | Responsive dashboard with intuitive controls | CSS3, Jinja2 |  
 
 ---
 
-## 🚀 **5-Second Demo**  
+##  **5-Second Demo**  
 ```bash
 git clone git@github.com:Hillcrest01/health-information-system.git
 cd health-information-system
@@ -26,11 +26,11 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 flask init-db && flask run
 ```
-➡️ Open [http://localhost:5000](http://localhost:5000) in your browser  
+Open [http://localhost:5000](http://localhost:5000) in your browser  
 
 ---
 
-## ✨ **Why This Stands Out**  
+##  **Why This Stands Out**  
 
 ✔ **End-to-End Encryption Ready** (Just add SSL)  
 ✔ **100% Test Coverage** (pytest examples included)  
@@ -42,7 +42,7 @@ flask init-db && flask run
 
 ---
 
-## 🛠️ **Developer Quickstart**  
+##  **Developer Quickstart**  
 
 ### **API Example**  
 ```python
@@ -72,3 +72,5 @@ erDiagram
 ```
 
 The system is live at: https://health-information-system-ziwb.onrender.com/
+Presentation slides: https://docs.google.com/presentation/d/1wJaqLtzb0jx8JX1k9abiUuNwRE-Fs9gUDAd2ZK2Tw_8/edit?usp=sharing
+Prototype demonstration: https://drive.google.com/file/d/1xYDgfUecbteqUYFRyh6_8nyKpKJuL--Q/view?usp=sharing
