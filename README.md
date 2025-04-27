@@ -63,6 +63,9 @@ erDiagram
         string first_name
         string last_name
         date date_of_birth
+        string gender
+        int phone_number
+        string address
     }
     HEALTH_PROGRAM ||--o{ ENROLLMENT : "Has patients"
     HEALTH_PROGRAM {
@@ -71,6 +74,6 @@ erDiagram
     }
 ```
 
-The system is live at: https://health-information-system-ziwb.onrender.com/
-Presentation slides: https://docs.google.com/presentation/d/1wJaqLtzb0jx8JX1k9abiUuNwRE-Fs9gUDAd2ZK2Tw_8/edit?usp=sharing
+The system is live at: https://health-information-system-ziwb.onrender.com/ <br>
+Presentation slides: https://docs.google.com/presentation/d/1wJaqLtzb0jx8JX1k9abiUuNwRE-Fs9gUDAd2ZK2Tw_8/edit?usp=sharing <br>
 Prototype demonstration: https://drive.google.com/file/d/1xYDgfUecbteqUYFRyh6_8nyKpKJuL--Q/view?usp=sharing
