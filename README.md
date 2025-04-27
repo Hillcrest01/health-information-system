@@ -1,8 +1,8 @@
-# 🌟 **HealthTrack Pro**  
+# 🌟 **Health Information System**  
 ### *Advanced Health Information Management System*  
 
 ```diff
-+ Modern Flask Web App | Secure API | Beautiful Dashboard | Doctor-Friendly Design
++ Modern Flask Web App | Doctor-Friendly Design
 ```
 
 ---
@@ -13,16 +13,15 @@
 |---------|-------------|-----------|  
 | **👥 Client Management** | Register, search, and manage patient profiles | Flask-SQLAlchemy |  
 | **🏥 Program Management** | Create TB/Malaria/HIV programs with tracking | WTForms |  
-| **📊 Enrollment System** | Assign patients to multiple health programs | SQLite/PostgreSQL |  
-| **🔒 Secure API** | JSON endpoints with Basic Auth | Flask-HTTPAuth |  
+| **📊 Enrollment System** | Assign patients to multiple health programs | SQLite/PostgreSQL |    
 | **🎨 Modern UI** | Responsive dashboard with intuitive controls | CSS3, Jinja2 |  
 
 ---
 
 ## 🚀 **5-Second Demo**  
 ```bash
-git clone https://github.com/yourrepo/healthtrack-pro.git
-cd healthtrack-pro
+git clone git@github.com:Hillcrest01/health-information-system.git
+cd health-information-system
 python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 flask init-db && flask run
@@ -35,8 +34,8 @@ flask init-db && flask run
 
 ✔ **End-to-End Encryption Ready** (Just add SSL)  
 ✔ **100% Test Coverage** (pytest examples included)  
-✔ **Production-Ready** (Docker config available)  
-✔ **Mobile-Optimized** (Works on clinic tablets)  
+✔ **Production-Ready** (requirements.txt available)  
+✔ **Mobile-Optimized** (Works on any screen size)  
 
 ---
 
@@ -51,7 +50,6 @@ import requests
 
 response = requests.get(
     'http://localhost:5000/api/v1/clients/1',
-    auth=('doctor', 'health123')
 )
 print(response.json())
 ```
