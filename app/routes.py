@@ -88,6 +88,7 @@ def client_profile(client_id):
                          client=client, 
                          programs=all_programs)
 
+#enroll a client
 @main.route('/clients/<int:client_id>/enroll', methods=['POST'])
 def enroll_client(client_id):
     client = Client.query.get_or_404(client_id)
@@ -113,7 +114,7 @@ def unenroll_client(client_id, program_id):
     
     return redirect(url_for('main.client_profile', client_id=client.id))
 
-#Handle search 
+#Handle search for the clients.
 @main.route('/clients/search')
 def search_clients():
     query = request.args.get('q', '')
